@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue.js</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <section class="todoapp" id="app">
+        <header class="header">
+            <h1>todos</h1>
+            <input class="new-todo" autofocus autocomplete="off" placeholder="What needs to be done?"
+                v-on:keyup.enter="addTodos" v-model="newTodoTitle">
+        </header>
+        <section class="main" v-cloak>
+            <input id="toggle-all" class="toggle-all" type="checkbox">
+            <label for="toggle-all"></label>
+            <ul class="todo-list">
+                <li class="todo" v-bind:class="{completed: todo.completed}" v-for="(todo, index) in filteredTodos">
+                    <div class="view">
+                        <input class="toggle" type="checkbox" v-model="todo.completed">
+                        <label>{{todo.title}}</label>
+                        <button class="destroy" v-on:click="removeTodo(index)"></button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <footer class="footer">
+            <span class="todo-count">
+                <strong>{{todos.length}}</strong> {{ todos.length | pluralize }} left
+            </span>
+            <ul class="filters">
+                <li><a v-bind:class="{selected: filter == 'all'}" v-on:click="filter = 'all'">全部</a></li>
+                <li><a v-bind:class="{selected: filter == 'active'}" v-on:click="filter = 'active'">未完了</a></li>
+                <li><a v-bind:class="{selected: filter == 'completed'}" v-on:click="filter = 'completed'">完了</a></li>
+            </ul>
+        </footer>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
